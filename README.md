@@ -7,14 +7,10 @@
 - **Situation professionnelle :** 💼 Création d'une application MERN Fullstack
 - **Contexte :** Application pour la gestion de flotte
 
-![RoadSync.png](./RoadSync.png)
+![RoadSync.png](./frontend/src/assets/RoadSync.png)
 
 ## 🎯 Objectif du projet
 Application pour la gestion de flotte, permettant d’automatiser le suivi des véhicules, trajets, maintenance et chauffeurs afin d’améliorer la visibilité et l’efficacité globale.
-
-**Ce brief vous a été assigné** : _Lisez attentivement votre brief avant de débuter votre travail !_
-
-**Assignation individuelle** : _Vous travaillez individuellement sur ce brief_.
 
 ### 🎓 Problématique
 Dans le contexte web actuel, on recherche des solutions pour développer des applications web performantes et intuitives. Celles-ci doivent être à la fois simples à administrer et à déployer. Comment peut-on allier efficacement le rendu côté serveur, propre à la logique traditionnelle, à la flexibilité et la réactivité offertes par JavaScript et Node.js? La stack MERN, combinant MongoDB, Express.js, React.js et Node.js, semble être une réponse prometteuse à ce défi.

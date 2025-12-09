@@ -7,7 +7,7 @@
 - **Situation professionnelle :** 💼 Création d'une application MERN Fullstack
 - **Contexte :** Application pour la gestion de flotte
 
-![RoadSync.png](./RoadSync.png)
+![RoadSync.png](./frontend/src/assets/RoadSync.png)
 
 ## 🎯 Objectif du projet
 Application pour la gestion de flotte, permettant d’automatiser le suivi des véhicules, trajets, maintenance et chauffeurs afin d’améliorer la visibilité et l’efficacité globale.

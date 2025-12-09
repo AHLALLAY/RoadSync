@@ -3,55 +3,56 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: [true, "first name is required"],
+        required: [true, "Le prénom est requis"],
         trim: true
     },
     lastName: {
         type: String,
-        required: [true, "last name is required"],
+        required: [true, "Le nom est requis"],
         trim: true
     },
     email: {
         type: String,
-        required: [true, "email is required"],
+        required: [true, "L'email est requis"],
         unique: true,
-        maxLength: [50, "Max length is 50 characters"],
+        maxLength: [50, "L'email ne peut pas dépasser 50 caractères"],
         trim: true,
         lowercase: true
     },
     password: {
         type: String,
-        required: [true, "password is required"],
-        minLength: [8, "Min length is 8 characters"],
+        required: [true, "Le mot de passe est requis"],
+        minLength: [8, "Le mot de passe doit contenir au moins 8 caractères"],
     },
     birthDay: {
         type: Date,
-        required: [true, "birth day is required"]
+        required: [true, "La date de naissance est requise"]
     },
     cin: {
         type: String,
-        required: [true, "CIN is required"],
+        required: [true, "Le CIN est requis"],
         unique: true,
-        minLength: [5, "Min length is 5 characters"],
-        maxLength: [10, "Max length is 10 characters"],
+        minLength: [5, "Le CIN doit contenir au moins 5 caractères"],
+        maxLength: [10, "Le CIN ne peut pas dépasser 10 caractères"],
         trim: true
     },
     phone: {
         type: String,
-        required: [true, "Phone number is required"],
+        required: [true, "Le numéro de téléphone est requis"],
         trim: true
     },
     role: {
         type: String,
-        enum: ['Admin', 'Chauffeur'],
+        enum: {
+            values: ['Admin', 'Chauffeur'],
+            message: '{VALUE} n\'est pas un rôle valide'
+        },
         default: 'Chauffeur',
-        required: [true, "Role is required"],
+        required: [true, "Le rôle est requis"],
         trim: true
     }
 }, {
-    timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    timestamps: true
 });
 
 export default mongoose.model('User', userSchema);

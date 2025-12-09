@@ -20,7 +20,7 @@ class Connection {
             const conn = await mongoose.connect(uri);
             
             this.isConnected = true;
-            console.log(`MongoDB Connecté : ${conn.connection.host}`);
+            console.log("MongoDB Connecté");
             
             return conn;
         } catch (error) {

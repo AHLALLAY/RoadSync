@@ -12,6 +12,18 @@ class AuthController {
             return returns(res, 500, false, "erreur inattendue", null, e.message);
         }
     }
+
+    async login(req, res) {
+        try {
+            const result = await authService.login(req.body);
+            return returns(res, 200, true, "La connexion a réussi", result);
+        } catch (e) {
+            if (e.message === "Veuillez remplir tous les champs" || e.message === "L'email ou le mot de passe n'est pas correct" || e.message === "L'utilisateur introuvable" || e.message === "L'émail invalide" || e.message === "Le mot de passe invalide") {
+                return returns(res, 400, false, e.message);
+            }
+            return returns(res, 500, false, "erreur inattendue", null, e.message);
+        }
+    }
 }
 
 

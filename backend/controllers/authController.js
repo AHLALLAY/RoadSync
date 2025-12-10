@@ -1,4 +1,5 @@
 import authService from "../services/authService.js";
+import returns from '../utils/returns.js';
 
 class AuthController {
     async register(req, res) {

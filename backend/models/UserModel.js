@@ -43,12 +43,12 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
+        required: [true, "Le rôle est requis"],
         enum: {
             values: ['Admin', 'Chauffeur'],
             message: '{VALUE} n\'est pas un rôle valide'
         },
         default: 'Chauffeur',
-        required: [true, "Le rôle est requis"],
         trim: true
     }
 }, {

@@ -1,10 +1,13 @@
 import express from 'express';
 import 'dotenv/config';
 import dbConnection from './database/ConnexionDB.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 const uri = process.env.MONGO_URI;
 const port = process.env.PORT;
+
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res)=>{
     res.send('Bienvenu chez RoadSync');

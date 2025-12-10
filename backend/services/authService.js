@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/UserModel.js';
 import validation from '../utils/validation.js';
+import jwt from 'jsonwebtoken';
 
 class AuthService {
     async register(userData) {
@@ -33,7 +34,7 @@ class AuthService {
         const token = jwt.sign(
             { newUser_id: newUser._id },
             process.env.JWT_SECRET,
-            { expiredIn: '1h' }
+            { expiresIn: '1h' }
         );
         return {
             user: {

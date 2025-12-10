@@ -32,7 +32,7 @@ class AuthService {
             role
         });
         const token = jwt.sign(
-            { newUser_id: newUser._id },
+            { id: newUser._id, role:newUser.replaceOne },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
@@ -68,7 +68,7 @@ class AuthService {
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
                 const token = jwt.sign(
-                    { user_id: user._id },
+                    { id: user._id, role: user.role },
                     process.env.JWT_SECRET,
                     { expiresIn: '1h' }
                 );

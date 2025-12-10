@@ -32,7 +32,7 @@ class AuthService {
             role
         });
         const token = jwt.sign(
-            { id: newUser._id, role:newUser.replaceOne },
+            { id: newUser._id, role:newUser.role },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );

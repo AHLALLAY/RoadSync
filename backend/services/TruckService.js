@@ -10,6 +10,13 @@ class TruckService {
         
         return newTruck;
     }
+
+    async readeTrucks(){
+        const trucks = await Truck.find({});
+        
+        if(trucks.length == 0) throw new Error("Pas de camions");
+        return trucks;
+    }
 }
 
 export default new TruckService();

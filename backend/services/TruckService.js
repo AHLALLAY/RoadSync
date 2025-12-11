@@ -1,4 +1,4 @@
-import Truck from "../models/TruckModel";
+import Truck from "../models/TruckModel.js";
 
 class TruckService {
     async createTruck(truckData) {

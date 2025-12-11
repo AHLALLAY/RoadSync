@@ -1,4 +1,4 @@
-import returns from "../utils/returns";
+import returns from "../utils/returns.js";
 
 class RoleMiddleware {
 

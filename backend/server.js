@@ -2,6 +2,7 @@ import express from 'express';
 import 'dotenv/config';
 import dbConnection from './database/ConnexionDB.js';
 import authRoutes from './routes/authRoutes.js';
+import truckRoutes from './routes/truckRoutes.js';
 
 const app = express();
 const uri = process.env.MONGO_URI;
@@ -10,6 +11,7 @@ const port = process.env.PORT;
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/admin/',truckRoutes);
 
 app.get('/', (req, res)=>{
     res.send('Bienvenu chez RoadSync');

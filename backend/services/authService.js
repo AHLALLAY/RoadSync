@@ -32,21 +32,19 @@ class AuthService {
             role
         });
         const token = jwt.sign(
-            { id: newUser._id, role:newUser.role },
+            { id: newUser._id, role: newUser.role },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
         return {
-            user: {
-                id: newUser._id,
-                firstName: newUser.firstName,
-                lastName: newUser.lastName,
-                email: newUser.email,
-                birthDay: newUser.birthDay,
-                cin: newUser.cin,
-                phone: newUser.phone,
-                role: newUser.role
-            },
+            id: newUser._id,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            email: newUser.email,
+            birthDay: newUser.birthDay,
+            cin: newUser.cin,
+            phone: newUser.phone,
+            role: newUser.role,
             token: token
         };
     }
@@ -74,12 +72,11 @@ class AuthService {
                 );
 
                 return {
-                    user: {
-                        id: user._id,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email
-                    },
+                    id: user._id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    role: user.role,
                     token: token
                 };
             } else {

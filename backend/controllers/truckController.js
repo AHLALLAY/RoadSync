@@ -1,10 +1,10 @@
-import truckServise from '../services/truckService.js';
+import truckService from '../services/truckService.js';
 import returns from '../utils/returns.js';
 
 class TruckController {
     async createTruck(req, res) {
         try {
-            const result = await truckServise.createTruck(req.body);
+            const result = await truckService.createTruck(req.body);
             return returns(res, 201, true, "L'ajout du camion a réussi", result);
         } catch (e) {
             if (e.name === 'ValidationError') {
@@ -19,6 +19,15 @@ class TruckController {
                 return returns(res, 400, false, e.message);
             }
 
+            return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
+        }
+    }
+
+    async readeTrucks(req, res) {
+        try {
+            const trucks = await truckService.readeTrucks();
+            return returns(res, 200, true, "Les camions trouvé", trucks);
+        } catch (e) {
             return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
         }
     }

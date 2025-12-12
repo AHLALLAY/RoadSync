@@ -31,6 +31,15 @@ class TruckController {
             return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
         }
     }
+
+    async readeTruck(req, res) {
+        try {
+            const trucks = await truckService.readeTruck(req.params.id);
+            return returns(res, 200, true, "Les camions trouvé", trucks);
+        } catch (e) {
+            return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
+        }
+    }
 }
 
 export default new TruckController();

@@ -17,6 +17,13 @@ class TruckService {
         if(trucks.length == 0) throw new Error("Pas de camions");
         return trucks;
     }
+
+    async readeTruck(truckId){
+        const truck = await Truck.findById(truckId);
+        
+        if(!truck) throw new Error("Ce camion n'existe pas");
+        return truck;
+    }
 }
 
 export default new TruckService();

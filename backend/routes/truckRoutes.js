@@ -22,8 +22,7 @@ router.get(
 router.get(
     '/truck/:id',
     authMiddleware.verifyToken,
-    roleMiddleware.isAdmin,
-    roleMiddleware.isDriver,
+    roleMiddleware.checkRoles(['Admin', 'Chauffeur']),
     truckController.readeTruck
 );
 

@@ -16,17 +16,23 @@ class RoleMiddleware {
         return returns(res, 403, false, "Accès refusé. Espace réservé aux chauffeurs.");
     }
 
-    check(requiredRole) {
+    checkRoles(requiredRole) {
         return (req, res, next) => {
             if (!req.user || !req.user.role) {
                  return returns(res, 401, false, "Utilisateur non identifié.");
             }
 
-            if (req.user.role !== requiredRole) {
+            if (!requiredRole.includes(req.user.role)) {
                 return returns(res, 403, false, `Accès refusé. Rôle ${requiredRole} requis.`);
             }
+            if(requiredRole === "Admin"){
+                next();
+            }
+
+            if(requiredRole === "Chauffeur"){
+                
+            }
             
-            next();
         };
     }
 }

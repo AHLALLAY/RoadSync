@@ -34,12 +34,19 @@ class TruckController {
 
     async readeTruck(req, res) {
         try {
-            const trucks = await truckService.readeTruck(req.params.id);
-            return returns(res, 200, true, "Les camions trouvé", trucks);
+            const truck = await truckService.readeTruck(req.params.id);
+            if (req.user.role === 'Chauffeur') {
+                if (truck.driver.toString() !== req.user._id.toString()) {
+                    return returns(res, 403, false, "Vous ne pouvez consulter que votre propre camion.");
+                }
+            }
+            return returns(res, 200, true, "Les camions trouvé", truck);
         } catch (e) {
             return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
         }
+
     }
+
 }
 
 export default new TruckController();

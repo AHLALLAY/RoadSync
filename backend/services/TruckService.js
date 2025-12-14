@@ -24,6 +24,20 @@ class TruckService {
         if(!truck) throw new Error("Ce camion n'existe pas");
         return truck;
     }
+
+    async updateTruck(truckId, truckData){
+        const truck = await Truck.findByIdAndUpdate(truckId, truckData);
+        
+        if(!truck) throw new Error("Ce camion n'existe pas");
+        return truck;
+    }
+
+    async deleteTruck(truckId){
+        const truck = await Truck.findByIdAndDelete(truckId);
+            
+        if(!truck) throw new Error("Ce camion n'existe pas");
+        return truck;
+    }
 }
 
 export default new TruckService();

@@ -26,4 +26,18 @@ router.get(
     truckController.readeTruck
 );
 
+router.put(
+    '/truck/:id',
+    authMiddleware.verifyToken,
+    roleMiddleware.isAdmin,
+    truckController.updateTruck
+);
+
+router.delete(
+    '/truck/:id',
+    authMiddleware.verifyToken,
+    roleMiddleware.isAdmin,
+    truckController.deleteTruck
+);  
+
 export default router;

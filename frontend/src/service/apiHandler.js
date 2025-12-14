@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000';
+const API_BASE = 'http://localhost:3000/api';
 
 async function apiHandler(endPoint, methode = 'GET', body = null, token = null) {
     try {

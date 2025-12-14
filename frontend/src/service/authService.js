@@ -2,8 +2,9 @@ import apiHandler from "./apiHandler";
 
 class AuthService{
 
-    async login(){
-
+    async login(identifiants){
+        const response = await apiHandler("/auth/login", "POST", identifiants);
+        return response;
     }
 
 }

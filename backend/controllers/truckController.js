@@ -47,6 +47,23 @@ class TruckController {
 
     }
 
+    async updateTruck(req, res) {
+        try {
+            const truck = await truckService.updateTruck(req.params.id, req.body);
+            return returns(res, 200, true, "Le camion a été mis à jour", truck);
+        } catch (e) {
+            return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
+        }
+    }
+
+    async deleteTruck(req, res) {
+        try {
+            const truck = await truckService.deleteTruck(req.params.id);
+            return returns(res, 200, true, "Le camion a été supprimé", truck);
+        } catch (e) {
+            return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
+        }
+    }
 }
 
 export default new TruckController();

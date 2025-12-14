@@ -1,11 +1,41 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button";
 import Input from "../../components/ui/input";
+import authService from "../../service/authService";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+
+    const loginHandler = async (e) => {
+        e.preventDefault();
+
+        const identifiants = {
+            email: email,
+            password: password
+        }
+
+        const response = await authService.login(identifiants);
+
+        if (response.success) {
+            const backendData = response.data;
+
+            if (backendData.data && backendData.data.token) {
+                localStorage.setItem("token", backendData.data.token);
+                localStorage.setItem("user", JSON.stringify(backendData.data));
+                navigate("/");
+            } else {
+                setError("Erreur format de réponse invalide");
+            }
+        }
+        else {
+            setError(response.message || "Erreur lors de la connexion");
+        }
+    }
 
     return (
         <div className="w-full max-w-md p-6 md:p-8 bg-gray-900 border border-gray-800 rounded-lg">
@@ -19,8 +49,9 @@ function Login() {
                     Connexion
                 </h2>
             </div>
+            {error && <p className="text-red-500">{error}</p>}
 
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={loginHandler}>
                 <div className="space-y-4">
                     <Input
                         label="Email"

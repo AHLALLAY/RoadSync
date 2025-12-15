@@ -38,16 +38,13 @@ function Header() {
     return (
         <header className="flex flex-col md:flex-row justify-between items-center p-4 bg-gray-900 border-b border-gray-800">
             <div className="mb-4 md:mb-0">
-                <p className="text-2xl font-bold tracking-wider">
-                    <span className="text-blue-400">
-                        Road
-                    </span>
-                    <span className="text-orange-400 ml-1">
-                        Sync
-                    </span>
-                </p>
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold tracking-wider">
+                        <span className="text-blue-400">Road</span>
+                        <span className="text-orange-400">Sync</span>
+                    </h1>
+                </div>
             </div>
-
             <nav className="flex flex-wrap gap-4 md:gap-6 justify-center">
                 {currentMenu.map((item, index) => (
                     <Link
@@ -64,3 +61,4 @@ function Header() {
 }
 
 export default Header;
+

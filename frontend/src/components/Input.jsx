@@ -1,4 +1,4 @@
-function Input({ type = "text", label, id, placeholder, value, onChange, required = false }) {
+function Input({ type = "text", label, id, placeholder, value, onChange, required = false, className = "", ...props }) {
     return (
         <div className="space-y-2">
             {label && (
@@ -9,14 +9,15 @@ function Input({ type = "text", label, id, placeholder, value, onChange, require
             <input
                 type={type}
                 id={id}
-                className="w-full p-3 rounded bg-gray-800 text-white border border-gray-700"
+                className={`w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
                 required={required}
+                {...props}
             />
         </div>
     );
 }
 
-export default Input;
+export { Input };

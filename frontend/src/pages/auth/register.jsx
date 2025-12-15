@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import Button from "../../components/ui/button";
-import Input from "../../components/ui/input";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Input } from "../../components";
+import authService from "../../service/authService";
+import { saveAuth } from "../../utils/authUtils";
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -14,19 +15,55 @@ function Register() {
         phone: "",
         role: "Chauffeur"
     });
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Données soumises :", formData);
+        setError("");
+        setLoading(true);
+
+        try {
+            const dataToSend = {
+                ...formData,
+                birthDay: formData.birthDay ? new Date(formData.birthDay).toISOString() : formData.birthDay
+            };
+            const response = await authService.register(dataToSend);
+
+            if (response.success) {
+                const backendData = response.data;
+
+                if (backendData.data && backendData.data.token) {
+                    saveAuth(backendData.data, backendData.data.token);
+
+                    if (backendData.data.role === 'Admin') {
+                        navigate("/admin/dashboard");
+                    } else if (backendData.data.role === 'Chauffeur') {
+                        navigate("/driver/dashboard");
+                    } else {
+                        navigate("/");
+                    }
+                } else {
+                    setError("Erreur : format de réponse invalide");
+                }
+            } else {
+                setError(response.message || "Erreur lors de l'inscription");
+            }
+        } catch (err) {
+            console.error("Erreur inscription:", err);
+            setError("Erreur de connexion au serveur");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="w-full max-w-2xl p-4 md:p-8 bg-gray-900 border border-gray-800 rounded-lg">
-            
             <div className="text-center mb-6 md:mb-8">
                 <p className="text-3xl md:text-4xl font-bold tracking-wider mb-2">
                     <span className="text-blue-400">Road</span>
@@ -36,6 +73,8 @@ function Register() {
                     Créer un nouveau compte
                 </h2>
             </div>
+
+            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -72,7 +111,7 @@ function Register() {
                         label="Mot de passe"
                         type="password"
                         id="password"
-                        placeholder="Min. 8 car."
+                        placeholder="Min. 8 car. (Maj, min, chiffre, spécial)"
                         value={formData.password}
                         onChange={handleChange}
                         required
@@ -123,9 +162,10 @@ function Register() {
                 <div className="mt-8">
                     <Button 
                         type="submit" 
-                        style="w-full py-3 bg-orange-500 text-white hover:bg-orange-600"
+                        style="w-full py-3 bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={loading}
                     >
-                        Créer mon compte
+                        {loading ? "Création en cours..." : "Créer mon compte"}
                     </Button>
                 </div>
 

@@ -1,10 +1,11 @@
-const API_BASE = 'http://localhost:3000';
+import { API_BASE } from '../config/env.js';
 
 async function apiHandler(endPoint, methode = 'GET', body = null, token = null) {
     try {
+        const validToken = token || localStorage.getItem('token');
         const header = {
             'Content-Type': 'application/json',
-            ...(token && { 'Authorization': `Bearer ${token}` })
+            ...(validToken && { 'Authorization': `Bearer ${validToken}` })
         }
         const option = {
             method: methode,
@@ -27,7 +28,6 @@ async function apiHandler(endPoint, methode = 'GET', body = null, token = null) 
         }
 
         const data = await response.json();
-        console.log('[handleApi] =>', data);
         return {
             success: true,
             data: data

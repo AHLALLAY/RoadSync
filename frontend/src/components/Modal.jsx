@@ -30,6 +30,7 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
                     onClose();
                 }
             }}
+            tabIndex={0}
         >
             <div 
                 className={`bg-gray-900 rounded-xl border border-gray-700 shadow-2xl w-full ${sizeClasses[size]} max-h-[90vh] overflow-y-auto`}

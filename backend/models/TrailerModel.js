@@ -34,6 +34,11 @@ const trailerSchema = new mongoose.Schema({
         type: String,
         enum: ['Disponible', 'En voyage', 'Maintenance'],
         default: 'Disponible'
+    },
+    mileage: {
+        type: Number,
+        default: 0,
+        min: [0, "Le kilométrage ne peut pas être négatif"]
     }
 }, {
     timestamps: true

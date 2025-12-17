@@ -60,7 +60,9 @@ function Login() {
                 </h2>
             </div>
             {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-500">{error}</p>}
 
+            <form onSubmit={loginHandler}>
             <form onSubmit={loginHandler}>
                 <div className="space-y-4">
                     <Input

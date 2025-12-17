@@ -14,8 +14,18 @@ class AuthMiddleware {
             const userData = jwt.verify(token, process.env.JWT_SECRET);
             req.user = userData;
             next();
-        } catch (e) {
-            return returns(res, 401, false, "Token invalide ou expiré.");
+        } catch (error) {
+            let message = "Token invalide.";
+
+            if (error.name === 'TokenExpiredError') {
+                message = "Token expiré.";
+            } else if (error.name === 'JsonWebTokenError') {
+                message = "Token mal formé.";
+            } else if (error.name === 'NotBeforeError') {
+                message = "Token pas encore valide.";
+            }
+
+            return returns(res, 401, false, message);
         }
     }
 }

@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import cors from 'cors';
 import dbConnection from './database/ConnexionDB.js';
 import authRoutes from './routes/authRoutes.js';
 import truckRoutes from './routes/truckRoutes.js';
@@ -12,6 +13,7 @@ const app = express();
 const uri = process.env.MONGO_URI;
 const port = process.env.PORT;
 
+app.use(cors());
 app.use(cors());
 app.use(express.json());
 

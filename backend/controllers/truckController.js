@@ -2,51 +2,50 @@ import truckService from '../services/truckService.js';
 import returns from '../utils/returns.js';
 
 class TruckController {
-    async createTruck(req, res) {
+    async createTruck(req, res, next) {
         try {
             const result = await truckService.createTruck(req.body);
             return returns(res, 201, true, "L'ajout du camion a réussi", result);
         } catch (e) {
-            if (e.name === 'ValidationError') {
-                const firstErrorMessage = Object.values(e.errors).map(val => val.message)[0];
-                return returns(res, 400, false, firstErrorMessage);
-            }
-            if (e.code === 11000) {
-                return returns(res, 400, false, "Ce véhicule (matricule) existe déjà.");
-            }
-
-            if (e.message.includes("existe déjà") || e.message.includes("Veuillez remplir")) {
-                return returns(res, 400, false, e.message);
-            }
-
-            return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
+            next(e);
         }
     }
 
-    async readeTrucks(req, res) {
+    async readTrucks(req, res, next) {
         try {
-            const trucks = await truckService.readeTrucks();
-            return returns(res, 200, true, "Les camions trouvé", trucks);
+            const trucks = await truckService.readTrucks();
+            return returns(res, 200, true, "Les camions trouvés", trucks);
         } catch (e) {
-            return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
+            next(e);
         }
     }
 
-    async readeTruck(req, res) {
+    async readTruck(req, res, next) {
         try {
-            const truck = await truckService.readeTruck(req.params.id);
-            if (req.user.role === 'Chauffeur') {
-                if (truck.driver.toString() !== req.user._id.toString()) {
-                    return returns(res, 403, false, "Vous ne pouvez consulter que votre propre camion.");
-                }
-            }
-            return returns(res, 200, true, "Les camions trouvé", truck);
+            const truck = await truckService.readTruck(req.params.id);
+            return returns(res, 200, true, "Camion trouvé", truck);
         } catch (e) {
-            return returns(res, 500, false, "Erreur serveur inattendue", null, e.message);
+            next(e);
         }
-
     }
 
+    async updateTruck(req, res, next) {
+        try {
+            const result = await truckService.updateTruck(req.params.id, req.body);
+            return returns(res, 200, true, "Modification réussie", result);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async deleteTruck(req, res, next) {
+        try {
+            await truckService.deleteTruck(req.params.id);
+            return returns(res, 200, true, "Suppression réussie");
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export default new TruckController();

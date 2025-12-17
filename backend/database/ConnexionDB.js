@@ -18,10 +18,8 @@ class Connection {
 
         try {
             const conn = await mongoose.connect(uri);
-            
             this.isConnected = true;
             console.log("MongoDB Connecté");
-            
             return conn;
         } catch (error) {
             console.error(`Erreur de connexion MongoDB : ${error.message}`);

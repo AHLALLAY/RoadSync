@@ -31,7 +31,7 @@ function Login() {
                 if (backendData.data.role === 'Admin') {
                     navigate("/admin/dashboard");
                 } else if (backendData.data.role === 'Chauffeur') {
-                    navigate("/driver");
+                    navigate("/driver/dashboard");
                 } else {
                     navigate("/");
                 }

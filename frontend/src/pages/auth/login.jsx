@@ -3,16 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Input } from "../../components";
 import authService from "../../service/authService";
 import { saveAuth } from "../../utils/authUtils";
-import { showSuccess, showError } from "../../utils/notifications";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
     const navigate = useNavigate();
 
     const loginHandler = async (e) => {
         e.preventDefault();
+        setError("");
+        setSuccess("");
 
         const identifiants = {
             email: email,
@@ -26,7 +28,8 @@ function Login() {
 
             if (backendData.data && backendData.data.token) {
                 saveAuth(backendData.data, backendData.data.token);
-                showSuccess('Connexion réussie !');
+                setSuccess('Connexion réussie !');
+                setError("");
 
                 if (backendData.data.role === 'Admin') {
                     navigate("/admin/dashboard");
@@ -38,13 +41,13 @@ function Login() {
             } else {
                 const errorMsg = "Erreur format de réponse invalide";
                 setError(errorMsg);
-                showError(errorMsg);
+                setSuccess("");
             }
         }
         else {
             const errorMsg = response.message || "Erreur lors de la connexion";
             setError(errorMsg);
-            showError(errorMsg);
+            setSuccess("");
         }
     }
 
@@ -59,10 +62,19 @@ function Login() {
                     Connexion
                 </h2>
             </div>
-            {error && <p className="text-red-500">{error}</p>}
-            {error && <p className="text-red-500">{error}</p>}
+            
+            {error && (
+                <div className="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg">
+                    <p className="text-red-400 text-sm">{error}</p>
+                </div>
+            )}
+            
+            {success && (
+                <div className="mb-4 p-3 bg-green-500/20 border border-green-500 rounded-lg">
+                    <p className="text-green-400 text-sm">{success}</p>
+                </div>
+            )}
 
-            <form onSubmit={loginHandler}>
             <form onSubmit={loginHandler}>
                 <div className="space-y-4">
                     <Input

@@ -13,7 +13,6 @@ import DriverDashboard from './pages/driver/Dashboard';
 import MyTrips from './pages/driver/MyTrips';
 import TripDetail from './pages/driver/TripDetail';
 import Home from './pages/Home';
-import Notification from './components/Notification';
 
 function App() {
   return (
@@ -50,7 +49,6 @@ function App() {
           
         </Routes>
       </BrowserRouter>
-      <Notification />
     </>
   );
 }

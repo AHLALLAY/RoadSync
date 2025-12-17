@@ -20,32 +20,37 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route element={<Layout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
-        <Route element={<ProtectedRoute allowedRoles={['Admin']} />}>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="/admin/dashboard" replace />} />
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="fleet" element={<Navigate to="/admin/fleet/trucks" replace />} />
-            <Route path="fleet/trucks" element={<Trucks />} />
-            <Route path="fleet/trailers" element={<Trailers />} />
-            <Route path="trips" element={<Trips />} />
+
+          <Route path="/" element={<Home />} />
+
+          <Route element={<Layout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Route>
-        </Route>
-        <Route element={<ProtectedRoute allowedRoles={['Chauffeur']} />}>
-          <Route path="/driver" element={<DriverLayout />}>
-            <Route index element={<Navigate to="/driver/dashboard" replace />} />
-            <Route path="dashboard" element={<DriverDashboard />} />
-            <Route path="trips" element={<MyTrips />} />
-            <Route path="trip/:id" element={<TripDetail />} />
+          
+          <Route element={<ProtectedRoute allowedRoles={['Admin']} />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<Navigate to="/admin/dashboard" replace />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="fleet" element={<Navigate to="/admin/fleet/trucks" replace />} />
+              <Route path="fleet/trucks" element={<Trucks />} />
+              <Route path="fleet/trailers" element={<Trailers />} />
+              <Route path="trips" element={<Trips />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    <Notification />
+          
+          <Route element={<ProtectedRoute allowedRoles={['Chauffeur']} />}>
+            <Route path="/driver" element={<DriverLayout />}>
+              <Route index element={<Navigate to="/driver/dashboard" replace />} />
+              <Route path="dashboard" element={<DriverDashboard />} />
+              <Route path="trips" element={<MyTrips />} />
+              <Route path="trip/:id" element={<TripDetail />} />
+            </Route>
+          </Route>
+          
+        </Routes>
+      </BrowserRouter>
+      <Notification />
     </>
   );
 }

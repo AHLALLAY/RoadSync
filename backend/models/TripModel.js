@@ -70,6 +70,10 @@ const tripSchema = new mongoose.Schema({
     },
     receiptImage: {
         type: String,
+    },
+    remarks: {
+        type: String,
+        trim: true
     }
 
 }, {

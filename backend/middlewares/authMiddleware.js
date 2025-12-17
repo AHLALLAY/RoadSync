@@ -2,10 +2,9 @@ import returns from '../utils/returns.js';
 import jwt from 'jsonwebtoken';
 
 class AuthMiddleware {
-    
     verifyToken(req, res, next) {
         const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
+        const token = authHeader?.split(' ')[1];
 
         if (!token) {
             return returns(res, 403, false, "Accès refusé. Aucun token fourni.");
